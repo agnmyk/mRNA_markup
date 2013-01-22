@@ -1,0 +1,117 @@
+1. Introduction
+
+The mRNA_merkup package contains a set of tools needed for performing the same task as BioExtract mRNA Markup workflow (http://www.bioextract.org) using Galaxy (http://galaxyproject.org/). The aim of the package is to classify a given set of mRNA sequences into several groups: contaminants (sequencing artifacts), potential chimeras, likely full-length protein-coding mRNAs, miRNAs, and potentially novel transcripts for further analysis with other programs.
+
+The processing workflow uses standard alignment tools: blastn, blastx i rpsblastn provided by NCBI (ftp://ftp.ncbi.nih.gov/blast/executables/blast+/), MuSeqBox, program for analyzing blast output (http://www.plantgdb.org/MuSeqBox/help.php) and three Python scripts: museq_partition.py, usunspacje.py and summary.py  which are described below. 
+
+The workflow consists of the following steps:
+
+1. Converting text versions of Bacterial Contamination and Ref. Protein  data into database format 
+2. Elimination of  Vector Contamination 
+3. Elimination of  bacterial contamination
+4. Finding  matches in a reference protein database
+5. Identifying potential full-length coding sequences
+6. Identifying potential chimeric sequences
+7. Finding matches in a Comprehensive Protein database
+8. Finding matches in Protein Domain Database
+9. Producing summary report
+
+2. Working environment
+
+All .xml and .py files included in this package have to be placed in one directory. We assume here that it is called „name”. The configuration file tool_conf.xml which is located in the galaxy-dist folder should be extended with the following section:
+<section name="MyTools" id="mTools">
+	<tool file="*name*/blastx.xml" />
+	<tool file="*name*/blastn.xml" />
+	<tool file="*name*/rpstblastn.xml" />
+	<tool file="*name*/formatdb.xml" />
+	<tool file="*name*/museqbox.xml" />
+	<tool file="*name*/museq_partition.xml" />
+	<tool file="*name*/summary.xml" />
+</section> 
+
+The adpb_database.loc file containing paths to the databases should be located in the the galaxy-dist/tool-data folder. 
+ 
+
+3. Workflow elements
+
+Workflow elements are xml files which run separate programs or Python scripts: 
+
+Provide input sequences:
+generates two databases: Bacterial Contamination DB (here E. coli from NCBI Nucleotide) and Ref. Protein (here ATpepTAIR10 from http://www.plantgdb.org)
+options:	
+	type: protein, nucleotide
+input:	
+	a) a file with mRNA sequences in FASTA format (to be  classified)
+	b) a file with sequences for Bacterial Contamination DB in FASTA format
+	c) a file with mRNA sequences for Ref. Protein DB in FASTA format
+output:	
+	a) Bacterial Contamination DB
+	b) Ref. Protein DB
+
+
+blastn:  
+runs  blastn
+input: 	
+	a) a file with mRNA sequences in FASTA format 
+	b) nucleotide database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+output:  text blast results 
+
+blastx: 
+runs blastx
+options: 
+	a) num_alignment - Number of alignments
+	b) num_descriptions - Number of descriptions
+input: 	
+	a) a file with mRNA sequences in FASTA format
+	b) protein  database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+output: text blast results
+
+rpsblastn: 
+runs  blastx
+input: 	
+	a) a file with mRNA sequences in FASTA format 
+	b) profile database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+output: text blast results
+
+museqbox: 
+runs usunspacje.py and then  MuSeqBox
+options: 	
+	q - print query IDs of queries with no hits
+	n - select first n hits
+	s - select the s best HSPs
+	F - identify potential full-length coding sequences
+		Fv5s - Max variance in subject at start position of 5
+		Fv3s - Max variance in subject at end position of 3
+		Fv5q - Max variance in query at start position of 5
+		Fv3q - max variance in query at end pos of 3
+		Fscv - min cumulative coverage of matched subj
+		Fqcv - min cumulative coverage of query
+	M - chimeric parameters
+		Mmov - max overlap positions
+		Mmex - min extent
+input: text blast results
+output: text file with ?
+
+museq_partition: 
+runs  museqpartition.py
+options : 
+	c - Process Chimera
+input: 	a) ouput from MuSeqBox
+	b) a file with mRNA sequences in FASTA format
+output: 
+	a) a file with sequences for which any hit was found by blastn, blastx or rpsblastn
+	b) a file with remaining sequences
+
+usunspacje.py:  takes blast output and removes spaces  (a step needed to process data with MuSeqBox)
+input: 	text  blastn, blastX  or rpsblastn results
+output: an input  file with unnecesarry spaces removed 
+
+museqpartition.py: partition of MRNA sequences  into two files basing on blast, blastx or rpsblastn results, one file contains sequences for which some hits were found, the second file contains the rest of sequences
+
+Summary: 
+runs summary.py which produces a text file with summary of  the partition process results 
+input: files with mRNA sequences (museq_partition output files) from each step of the workflow
+output:	text file with results - number of sequences in each file
+
+	
+
