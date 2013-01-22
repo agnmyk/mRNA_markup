@@ -1,0 +1,22 @@
+<tool id="summaryAM" name="summaryAM">
+	<description>Create summary report</description>
+	<command interpreter="python">summary.py $query0 $query1 $query2 $query3 $query4 $query5 $query6 $query7 $query8 $query9 $query10 $summary</command>
+
+	<inputs>
+		<param format="fasta" name="query0" type="data" label="Query file"/>
+		<param format="fasta" name="query1" type="data" label="Query file"/>
+		<param format="fasta" name="query2" type="data" label="Query file"/>
+		<param format="fasta" name="query3" type="data" label="Query file"/>
+		<param format="fasta" name="query4" type="data" label="Query file"/>
+		<param format="fasta" name="query5" type="data" label="Query file"/>
+		<param format="fasta" name="query6" type="data" label="Query file"/>
+		<param format="fasta" name="query7" type="data" label="Query file"/>
+		<param format="fasta" name="query8" type="data" label="Query file"/>
+		<param format="fasta" name="query9" type="data" label="Query file"/>
+		<param format="fasta" name="query10" type="data" label="Query file"/>
+	</inputs>
+ 	<outputs>
+    	<data format="text" name="summary" label="Summary"/>
+	</outputs><help>help</help>
+	<help>help</help>
+</tool>

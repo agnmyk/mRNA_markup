@@ -1,0 +1,42 @@
+<tool id="formatdb" name="Provide input sequences">
+	<description></description>
+	<command>$__root_dir__/tools/ncbi-blast-2.2.24+/bin/formatdb -i $query1
+#if $type1.type=="Protein":
+	-p T
+#elif $type1.type=="Nucleotide":
+	-p F
+#end if
+	-n $output1;
+$__root_dir__/tools/ncbi-blast-2.2.24+/bin/formatdb -i $query2
+#if $type2.type=="Protein":
+	-p T
+#elif $type2.type=="Nucleotide":
+	-p F
+#end if
+	-n $output2
+	</command>
+	<inputs>
+		<param format="fasta" name="query1" type="data" label="Bacterial Contamination DB"/>
+
+		<conditional name="type1">
+			<param name="type" type="select" label="type" help="">
+				<option value="Protein">protein</option>
+				<option value="Nucleotide">nucleotide</option>
+			</param>
+		</conditional>
+
+
+		<param format="fasta" name="query2" type="data" label="Ref. Protein DB"/>
+		<conditional name="type2">
+			<param name="type" type="select" label="type" help="">
+				<option value="Protein">protein</option>
+				<option value="Nucleotide">nucleotide</option>
+			</param>
+		</conditional>
+	</inputs>
+	<outputs>
+		<data format="db" name="output1" label="$type1.type Database (Bacteria)"/>
+		<data format="db" name="output2" label="$type2.type Database (Ref)"/>
+  	</outputs><help>help</help>
+	<help>help</help>
+</tool>

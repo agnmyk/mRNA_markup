@@ -1,0 +1,16 @@
+<tool id="rpstblastn" name="rpstblastn">
+	<description>Searches database of profiles using a translated nucleotide query against</description>
+	<command>$__root_dir__/tools/ncbi-blast-2.2.24+/bin/rpstblastn -query $query -db ${db} -num_descriptions 10 -num_alignments 5 -seg yes -evalue 1e-10 -show_gis -out $output</command>
+	<inputs>
+		<param format="fasta" name="query" type="data" label="Query file"/>
+		<param name="db" type="select" label="Conserved Domain Database">
+			<options from_file="adpb_database.loc">
+				<column name="name" index="0"/>
+				<column name="value" index="1"/>
+			</options>
+		</param>
+	</inputs>
+	<outputs>
+		<data format="tabular" name="output" label="rpstblastn_output"/>
+	</outputs><help>help</help>
+</tool>

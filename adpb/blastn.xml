@@ -1,0 +1,37 @@
+<tool id="blastn" name="blastn">
+<description>Search a nucleotide database using a nucleotide query</description>
+<command>$__root_dir__/tools/ncbi-blast-2.2.24+/bin/blastn -query $query 
+#if $database.source.__str__=="ref":
+	-db $database.db
+#elif $database.source.__str__=="history":
+	-db $database.db2
+#end if
+-show_gis -evalue 1e-20 -out $output
+</command>
+<inputs>
+    <param format="fasta" name="query" type="data" label="Query file"/>
+
+	<conditional name="database">
+		<param name="source" type="select" label="Select Database from...." help="">
+			<option value="ref">Databases</option>
+			<option value="history">Your History</option>
+		</param>
+	 	<when value="ref">
+			<param format="db" name="db" type="select" label="Nucleotide BLAST database">
+				<options from_file="adpb_database.loc">
+					<column name="name" index="0"/>
+					<column name="value" index="1"/>
+				</options>
+			</param>
+		</when>
+	 	<when value="history">
+			<param format="db" name="db2" type="data" label="Nucleotide BLAST database" />
+		</when>
+ 	</conditional>
+</inputs>
+<outputs>
+	<data format="tabular" name="output" label="blastn output"/>
+</outputs>
+<help>help</help>
+
+</tool>

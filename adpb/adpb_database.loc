@@ -1,0 +1,9 @@
+#This file has the format (white space characters are TAB characters):
+#
+#<blast database index filename (or alias)>	<file_path>
+#
+#adpb_database.loc could look something like this:
+#
+#UniVec	/data/monika/galaxy-python/galaxy-dist-postgres/tool-data/ADPB_Database/UniVec
+#CDD	/data/monika/galaxy-python/galaxy-dist-postgres/tool-data/ADPB_Database/cdd
+#All_Prot	/data/monika/galaxy-python/galaxy-dist-postgres/tool-data/ADPB_Database/all_prot

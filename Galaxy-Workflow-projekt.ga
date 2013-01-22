@@ -1,0 +1,955 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "", 
+    "format-version": "0.1", 
+    "name": "projekt", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "Bacterial DB"
+                }
+            ], 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 202, 
+                "top": 200
+            }, 
+            "tool_errors": null, 
+            "tool_id": null, 
+            "tool_state": "{\"name\": \"Bacterial DB\"}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "user_outputs": []
+        }, 
+        "1": {
+            "annotation": "", 
+            "id": 1, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "Ref Protein"
+                }
+            ], 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 204, 
+                "top": 264
+            }, 
+            "tool_errors": null, 
+            "tool_id": null, 
+            "tool_state": "{\"name\": \"Ref Protein\"}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "user_outputs": []
+        }, 
+        "2": {
+            "annotation": "", 
+            "id": 2, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "query"
+                }
+            ], 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 204, 
+                "top": 361
+            }, 
+            "tool_errors": null, 
+            "tool_id": null, 
+            "tool_state": "{\"name\": \"query\"}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "user_outputs": []
+        }, 
+        "3": {
+            "annotation": "", 
+            "id": 3, 
+            "input_connections": {
+                "query1": {
+                    "id": 0, 
+                    "output_name": "output"
+                }, 
+                "query2": {
+                    "id": 1, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "Provide input sequences", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "db"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "db"
+                }
+            ], 
+            "position": {
+                "left": 417, 
+                "top": 229
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "formatdb", 
+            "tool_state": "{\"query2\": \"null\", \"__page__\": 0, \"query1\": \"null\", \"type1\": \"{\\\"type\\\": \\\"Nucleotide\\\", \\\"__current_case__\\\": 1}\", \"type2\": \"{\\\"type\\\": \\\"Protein\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "4": {
+            "annotation": "", 
+            "id": 4, 
+            "input_connections": {
+                "query": {
+                    "id": 2, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "blastn", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 423, 
+                "top": 422
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "blastn", 
+            "tool_state": "{\"__page__\": 0, \"query\": \"null\", \"database\": \"{\\\"source\\\": \\\"ref\\\", \\\"db\\\": \\\"vec\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "5": {
+            "annotation": "4008\nout: VC", 
+            "id": 5, 
+            "input_connections": {
+                "query": {
+                    "id": 4, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 622, 
+                "top": 502
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "VC.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "6": {
+            "annotation": "4009\nout: VC, not_VC", 
+            "id": 6, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 2, 
+                    "output_name": "output"
+                }, 
+                "msbfile": {
+                    "id": 5, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 837, 
+                "top": 580
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_VC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "VC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "7": {
+            "annotation": "4010", 
+            "id": 7, 
+            "input_connections": {
+                "database|db2": {
+                    "id": 3, 
+                    "output_name": "output1"
+                }, 
+                "query": {
+                    "id": 6, 
+                    "output_name": "not"
+                }
+            }, 
+            "inputs": [], 
+            "name": "blastn", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 1075, 
+                "top": 702
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "blastn", 
+            "tool_state": "{\"__page__\": 0, \"query\": \"null\", \"database\": \"{\\\"source\\\": \\\"history\\\", \\\"db2\\\": null, \\\"__current_case__\\\": 1}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "8": {
+            "annotation": "4011\nout: BC", 
+            "id": 8, 
+            "input_connections": {
+                "query": {
+                    "id": 7, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 1310, 
+                "top": 844
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "BC.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "9": {
+            "annotation": "4012\nout: BC, not_BC", 
+            "id": 9, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 6, 
+                    "output_name": "not"
+                }, 
+                "msbfile": {
+                    "id": 8, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 1526, 
+                "top": 927
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_BC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "BC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "10": {
+            "annotation": "", 
+            "id": 10, 
+            "input_connections": {
+                "query": {
+                    "id": 9, 
+                    "output_name": "not"
+                }
+            }, 
+            "inputs": [], 
+            "name": "blastx", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 1760, 
+                "top": 1078
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "blastx", 
+            "tool_state": "{\"__page__\": 0, \"query\": \"null\", \"num_descriptions\": \"\\\"-\\\"\", \"num_alignment\": \"\\\"-\\\"\", \"database\": \"{\\\"source\\\": \\\"ref\\\", \\\"db\\\": \\\"ATpepTAIR10\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "11": {
+            "annotation": "4014\nout: RA", 
+            "id": 11, 
+            "input_connections": {
+                "query": {
+                    "id": 10, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 1989, 
+                "top": 1208
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "RA.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "12": {
+            "annotation": "4015\nout: fullcds", 
+            "id": 12, 
+            "input_connections": {
+                "query": {
+                    "id": 11, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 2005, 
+                "top": 1357
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "fullcds"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"True\\\", \\\"Fv3q\\\": \\\"10\\\", \\\"Fv3s\\\": \\\"5\\\", \\\"Fqcv\\\": \\\"60\\\", \\\"Fscv\\\": \\\"90\\\", \\\"__current_case__\\\": 1, \\\"Fv5s\\\": \\\"5\\\", \\\"Fv5q\\\": \\\"10\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"1\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"1\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "13": {
+            "annotation": "4017 Chimeric\nout: PC", 
+            "id": 13, 
+            "input_connections": {
+                "query": {
+                    "id": 11, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 2228, 
+                "top": 1159
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "PC.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"5\\\", \\\"yesNo\\\": \\\"True\\\", \\\"__current_case__\\\": 1, \\\"Mmex\\\": \\\"5\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"null\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "14": {
+            "annotation": "4016\nout: RA, not_RA", 
+            "id": 14, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 9, 
+                    "output_name": "not"
+                }, 
+                "msbfile": {
+                    "id": 11, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 2231, 
+                "top": 1282
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_RA-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "RA-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "15": {
+            "annotation": "4018\nout: FL, not_FL", 
+            "id": 15, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 14, 
+                    "output_name": "yes"
+                }, 
+                "msbfile": {
+                    "id": 12, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 2446, 
+                "top": 1444
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_FL-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "FL-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "16": {
+            "annotation": "", 
+            "id": 16, 
+            "input_connections": {
+                "query": {
+                    "id": 14, 
+                    "output_name": "not"
+                }
+            }, 
+            "inputs": [], 
+            "name": "blastx", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 2751, 
+                "top": 1319
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "blastx", 
+            "tool_state": "{\"__page__\": 0, \"query\": \"null\", \"num_descriptions\": \"\\\"10\\\"\", \"num_alignment\": \"\\\"5\\\"\", \"database\": \"{\\\"source\\\": \\\"ref\\\", \\\"db\\\": \\\"AllProtDB\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "17": {
+            "annotation": "4019\nout: PC, not_PC", 
+            "id": 17, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 15, 
+                    "output_name": "not"
+                }, 
+                "msbfile": {
+                    "id": 13, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 2778, 
+                "top": 1523
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_PC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "PC-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"\\\"yes\\\"\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "18": {
+            "annotation": "4021\nout: AA", 
+            "id": 18, 
+            "input_connections": {
+                "query": {
+                    "id": 16, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 2998, 
+                "top": 1422
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "AA.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "19": {
+            "annotation": "4022\nout: AA, not_AA", 
+            "id": 19, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 14, 
+                    "output_name": "not"
+                }, 
+                "msbfile": {
+                    "id": 18, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 3233, 
+                "top": 1514
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_AA-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "AA-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "20": {
+            "annotation": "", 
+            "id": 20, 
+            "input_connections": {
+                "query": {
+                    "id": 19, 
+                    "output_name": "not"
+                }
+            }, 
+            "inputs": [], 
+            "name": "rpstblastn", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 3478, 
+                "top": 1662
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "rpstblastn", 
+            "tool_state": "{\"query\": \"null\", \"db\": \"\\\"CD\\\"\", \"__page__\": 0}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "21": {
+            "annotation": "4024\nout: CD", 
+            "id": 21, 
+            "input_connections": {
+                "query": {
+                    "id": 20, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museqbox", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 3681, 
+                "top": 1771
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "CD.msb"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "output"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museqbox", 
+            "tool_state": "{\"__page__\": 0, \"F\": \"{\\\"yesNo\\\": \\\"False\\\", \\\"Fv3q\\\": \\\"\\\", \\\"Fv3s\\\": \\\"\\\", \\\"Fqcv\\\": \\\"\\\", \\\"Fscv\\\": \\\"\\\", \\\"__current_case__\\\": 0, \\\"Fv5s\\\": \\\"\\\", \\\"Fv5q\\\": \\\"\\\"}\", \"M\": \"{\\\"Mmov\\\": \\\"\\\", \\\"yesNo\\\": \\\"False\\\", \\\"__current_case__\\\": 0, \\\"Mmex\\\": \\\"\\\"}\", \"n\": \"\\\"\\\"\", \"q\": \"\\\"yes\\\"\", \"s\": \"\\\"\\\"\", \"query\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "22": {
+            "annotation": "4025\nout: CD, not_CD", 
+            "id": 22, 
+            "input_connections": {
+                "mrnafile": {
+                    "id": 19, 
+                    "output_name": "not"
+                }, 
+                "msbfile": {
+                    "id": 21, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "museq_partition", 
+            "outputs": [
+                {
+                    "name": "not", 
+                    "type": "fasta"
+                }, 
+                {
+                    "name": "yes", 
+                    "type": "fasta"
+                }
+            ], 
+            "position": {
+                "left": 3895, 
+                "top": 1866
+            }, 
+            "post_job_actions": {
+                "RenameDatasetActionnot": {
+                    "action_arguments": {
+                        "newname": "not_CD-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "not"
+                }, 
+                "RenameDatasetActionyes": {
+                    "action_arguments": {
+                        "newname": "CD-mRNA.fas"
+                    }, 
+                    "action_type": "RenameDatasetAction", 
+                    "output_name": "yes"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "museq_partition", 
+            "tool_state": "{\"mrnafile\": \"null\", \"__page__\": 0, \"c\": \"null\", \"msbfile\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "23": {
+            "annotation": "", 
+            "id": 23, 
+            "input_connections": {
+                "query0": {
+                    "id": 2, 
+                    "output_name": "output"
+                }, 
+                "query1": {
+                    "id": 6, 
+                    "output_name": "yes"
+                }, 
+                "query10": {
+                    "id": 22, 
+                    "output_name": "not"
+                }, 
+                "query2": {
+                    "id": 9, 
+                    "output_name": "yes"
+                }, 
+                "query3": {
+                    "id": 14, 
+                    "output_name": "yes"
+                }, 
+                "query4": {
+                    "id": 15, 
+                    "output_name": "yes"
+                }, 
+                "query5": {
+                    "id": 15, 
+                    "output_name": "not"
+                }, 
+                "query6": {
+                    "id": 17, 
+                    "output_name": "yes"
+                }, 
+                "query7": {
+                    "id": 17, 
+                    "output_name": "not"
+                }, 
+                "query8": {
+                    "id": 19, 
+                    "output_name": "yes"
+                }, 
+                "query9": {
+                    "id": 22, 
+                    "output_name": "yes"
+                }
+            }, 
+            "inputs": [], 
+            "name": "summary", 
+            "outputs": [
+                {
+                    "name": "summary", 
+                    "type": "text"
+                }
+            ], 
+            "position": {
+                "left": 3346, 
+                "top": 1840
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "summary", 
+            "tool_state": "{\"query2\": \"null\", \"query3\": \"null\", \"query0\": \"null\", \"query1\": \"null\", \"query6\": \"null\", \"query7\": \"null\", \"query4\": \"null\", \"query5\": \"null\", \"__page__\": 0, \"query8\": \"null\", \"query9\": \"null\", \"query10\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }
+    }
+}

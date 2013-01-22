@@ -1,0 +1,26 @@
+<tool id="museq_partitionAM" name="museq_partitionAM">
+  <description>Separates portions of a sequence that produced blast hits from those that did not.</description>
+ <command interpreter="python">museq_partition.py $mrnafile $msbfile $not $yes 
+#if $c.__str__=="yes":
+	True
+#end if
+</command>
+
+  <inputs>
+    <param format="fasta" name="mrnafile" type="data" label="Plik mRNA"/>
+
+	<param format="tabular" name="msbfile" type="data" label="Dane z museqbox"/>
+
+	<param name="c" type="select" display="checkboxes" multiple="True" label="Process Chimera"> 
+		<option value="yes">( -c )</option>
+	</param>
+
+
+
+  </inputs>
+  <outputs>
+    <data format="fasta" name="not" label="nie"/>
+	<data format="fasta" name="yes" label="tak"/>
+  </outputs><help>help</help>
+
+</tool>
