@@ -53,7 +53,7 @@ blastn:
 runs  blastn
 input: 	
 	a) a file with mRNA sequences in FASTA format 
-	b) nucleotide database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+	b) nucleotide database stored already on the disk or being a result of a previous Galaxy processing step
 output:  text blast results 
 
 blastx: 
@@ -63,14 +63,14 @@ options:
 	b) num_descriptions - Number of descriptions
 input: 	
 	a) a file with mRNA sequences in FASTA format
-	b) protein  database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+	b) protein  database stored already on the disk or being a result of a previous Galaxy processing step
 output: text blast results
 
 rpsblastn: 
 runs  blastx
 input: 	
 	a) a file with mRNA sequences in FASTA format 
-	b) profile database stored already on the disk or being a result of a previous Galaxy processing step) (gdzies napisac o loc)
+	b) profile database stored already on the disk or being a result of a previous Galaxy processing step
 output: text blast results
 
 museqbox: 
@@ -90,7 +90,7 @@ options:
 		Mmov - max overlap positions
 		Mmex - min extent
 input: text blast results
-output: text file with ?
+output: text file with information which sequences were found in selected database with blast
 
 museq_partition: 
 runs  museqpartition.py
