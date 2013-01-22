@@ -1,6 +1,6 @@
 1. Introduction
 
-The mRNA_merkup package contains a set of tools needed for performing the same task as BioExtract mRNA Markup workflow (http://www.bioextract.org) using Galaxy (http://galaxyproject.org/). The aim of the package is to classify a given set of mRNA sequences into several groups: contaminants (sequencing artifacts), potential chimeras, likely full-length protein-coding mRNAs, miRNAs, and potentially novel transcripts for further analysis with other programs.
+The mRNA_markup package contains a set of tools needed for performing the same task as BioExtract mRNA Markup workflow (http://www.bioextract.org) using Galaxy (http://galaxyproject.org/). The aim of the package is to classify a given set of mRNA sequences into several groups: contaminants (sequencing artifacts), potential chimeras, likely full-length protein-coding mRNAs, miRNAs, and potentially novel transcripts for further analysis with other programs.
 
 The processing workflow uses standard alignment tools: blastn, blastx i rpsblastn provided by NCBI (ftp://ftp.ncbi.nih.gov/blast/executables/blast+/), MuSeqBox, program for analyzing blast output (http://www.plantgdb.org/MuSeqBox/help.php) and three Python scripts: museq_partition.py, usunspacje.py and summary.py  which are described below. 
 
